@@ -1,0 +1,20 @@
+{
+  "name": "organic-sha256",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "author": "Kota Yatagai<kota@yatagai.com>",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "format": "./node_modules/eslint/bin/eslint.js --fix ./src/index.ts",
+    "tsc": "tsc",
+    "test": "node ./test/test.js"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "typescript": "^4.1.3"
+  }
+}
