@@ -3,8 +3,8 @@
 // 文字列を引数にとり、64の倍数bytesのHex文字列を返す
 const padding = (M: string): string => {
   let sizeLastBlock = 64; // Mの末尾のブロックサイズ
-  const sizeMLengthBuffer = 8; // 最終的なメッセージの末尾8bytesはMのサイズを記述する
-  const sizeDivision = 1; // メッセージバイトと余りの0バイトの区切り（0x80）
+  const sizeMLengthBuffer: number = 8; // 最終的なメッセージの末尾8bytesはMのサイズを記述する
+  const sizeDivision: number = 1; // メッセージバイトと余りの0バイトの区切り（0x80）
   const sizeMaxBlock: number = sizeLastBlock - sizeMLengthBuffer - sizeDivision; // メッセージバイトは55bytes以下であれば良い
   const sizeM: number = encodeURI(M).replace(/%../g, "*").length;
   const sizeLastM: number = sizeM % 64;
@@ -37,11 +37,11 @@ const divideM = (M: string): string[] => {
 
 const ch = (x: number, y: number, z: number): number => ((x & y) ^ (~x & z)) >>> 0;
 
-const maj = (x: number, y: number, z: number) => ((x & y) ^ (x & z) ^ (y & z)) >>> 0;
+const maj = (x: number, y: number, z: number): number => ((x & y) ^ (x & z) ^ (y & z)) >>> 0;
 
-const rotr = (x: number, n: number) => ((x >>> n) | (x << (32 - n))) >>> 0;
+const rotr = (x: number, n: number): number => ((x >>> n) | (x << (32 - n))) >>> 0;
 
-const shr = (x: number, n: number) => (x >>> n) >>> 0;
+const shr = (x: number, n: number): number => (x >>> n) >>> 0;
 
 const upperSigma0 = (x: number): number => (rotr(x, 2) ^ rotr(x, 13) ^ rotr(x, 22)) >>> 0;
 
@@ -52,7 +52,7 @@ const lowerSigma0 = (x: number): number => (rotr(x, 7) ^ rotr(x, 18) ^ shr(x, 3)
 const lowerSigma1 = (x: number): number => (rotr(x, 17) ^ rotr(x, 19) ^ shr(x, 10)) >>> 0;
 
 // 小さい方から64個の素数の立方根の小数点以下4bytesの定数
-const K = [
+const K: number[] = [
   0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98,
   0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786,
   0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8,
@@ -79,7 +79,7 @@ const mapW = (array64: number[], Mi: string[]): number[] => {
 };
 
 // メインの関数
-export const computeHash = (M: string) => {
+export const computeHash = (M: string): string => {
   // ブロックごとにハッシュ値が格納される配列
   const H: number[] = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
   const paddedString: string = padding(M);
@@ -116,12 +116,12 @@ export const computeHash = (M: string) => {
     H[7] = ((h + H[7]) & 0xffffffff) >>> 0;
   }
 
-  let result = "";
+  let result: string = "";
 
   H.map(b => {
     let hashString: string = b.toString(16);
     if(hashString.length < 8) {
-      const extraZeros = Array(8 - hashString.length).fill(0).join('');
+      const extraZeros: string = Array(8 - hashString.length).fill(0).join('');
       hashString = extraZeros + hashString;
     }
     result += hashString;

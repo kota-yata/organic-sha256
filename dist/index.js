@@ -6,14 +6,6 @@ const padding = (M) => {
     const sizeDivision = 1; // メッセージバイトと余りの0バイトの区切り（0x80）
     const sizeMaxBlock = sizeLastBlock - sizeMLengthBuffer - sizeDivision; // メッセージバイトは55bytes以下であれば良い
     const sizeM = encodeURI(M).replace(/%../g, "*").length;
-    /*for(let i = 0; i < M.length; i++) {
-      const isFullWidth: RegExpMatchArray | null = M[i].match(/^[^\x01-\x7E\xA1-\xDF]+$/);
-      if(!isFullWidth) {
-        sizeM ++;
-        continue;
-      }
-      sizeM += 3;
-    }*/
     const sizeLastM = sizeM % 64;
     const isOverflow = sizeMaxBlock < sizeLastM;
     if (isOverflow)
