@@ -2,7 +2,7 @@
 
 // 文字列を引数にとり、64の倍数bytesのHex文字列を返す
 const padding = (M: string): string => {
-  let sizeLastBlock = 64; // Mの末尾のブロックサイズ
+  let sizeLastBlock: number = 64; // Mの末尾のブロックサイズ
   const sizeMLengthBuffer: number = 8; // 最終的なメッセージの末尾8bytesはMのサイズを記述する
   const sizeDivision: number = 1; // メッセージバイトと余りの0バイトの区切り（0x80）
   const sizeMaxBlock: number = sizeLastBlock - sizeMLengthBuffer - sizeDivision; // メッセージバイトは55bytes以下であれば良い
