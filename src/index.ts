@@ -1,5 +1,3 @@
-"use strict";
-
 // 文字列を引数にとり、64の倍数bytesのHex文字列を返す
 const padding = (M: string): string => {
   let sizeLastBlock: number = 64; // Mの末尾のブロックサイズ
@@ -90,9 +88,8 @@ export const computeHash = (M: string): string => {
 
     if (!Mi) throw new Error("Failed to divide dividedM");
     const W: number[] = mapW(Array(64), Mi);
-    let a, b, c, d, e, f, g, h;
+    let [a, b, c, d, e, f, g, h] : number[] = [...H];
 
-    [a, b, c, d, e, f, g, h] = [...H];
     for (let t = 0; t < 64; t++) {
       const T1: number = ((h + upperSigma1(e) + ch(e, f, g) + K[t] + W[t]) & 0xffffffff) >>> 0;
       const T2: number = ((upperSigma0(a) + maj(a, b, c)) & 0xffffffff) >>> 0;
@@ -118,14 +115,14 @@ export const computeHash = (M: string): string => {
 
   let result: string = "";
 
-  H.map(b => {
-    let hashString: string = b.toString(16);
+  for(let e = 0; e < H.length; e++) {
+    let hashString: string = H[e].toString(16);
     if(hashString.length < 8) {
       const extraZeros: string = Array(8 - hashString.length).fill(0).join('');
       hashString = extraZeros + hashString;
     }
     result += hashString;
-  });
+  }
   if(result.length !== 64) throw new Error("Hash result is not 32bytes");
 
   return result;
