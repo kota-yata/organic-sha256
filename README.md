@@ -1,7 +1,7 @@
 # Organic SHA-256
-TypeScriptで0から書いたSHA-256のアルゴリズムです。全角文字、絵文字、アラビア語、ロシア語でテスト済みです。
+TypeScriptで0から書いたSHA-256のアルゴリズムです。全角文字、絵文字等複数バイトの文字でテスト済みです。
 
-n番煎じなのでパッケージ化はしませんが気が向いたらもっと速くできないか考えます。めっちゃ速くなったらパッケージ化します。
+This is a SHA-256 (Secure Hash Algorithm 256bits) Implementation written in TypeScript. Works fine with multiple bytes character.
 
 # Development
 ```
